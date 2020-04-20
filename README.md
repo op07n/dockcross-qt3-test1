@@ -1,0 +1,1 @@
+# dockcross-qt3-test1
