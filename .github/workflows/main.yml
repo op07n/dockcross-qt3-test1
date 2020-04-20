@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: op07n/qt3.git
+        path: main       
+    - name: generate
+      run: |
+            docker run --rm dockcross/windows-shared-x86 > ./xcross; chmod +x ./xcross; sudo mv ./xcross /usr/bin/
+            xcross bash -c "export PATH=/usr/src/mxe/usr/bin/i686-w64-mingw32.shared-gcc:$PATH && cd /home/runner/work/dockcross-qt3-test1/dockcross-qt3-test1/main && yes yes | ./configure -thread -fast -nomake examples -nomake demos && make || true"
+            ls -la
+            
+           
